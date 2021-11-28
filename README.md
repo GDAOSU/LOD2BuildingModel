@@ -19,7 +19,7 @@ Given that our method assumes only a few model types rooted in rectangle shapes,
 In our future work, a direct prediction of model type and parameters will be attempted, and other building segmentation methods will be introduced for building mask improvement, and types of models will be increased rooted not only on rectangle shapes but also circular and complexly parameterized shapes, followed by continued investigation on approaches to favorably offer reasonable decomposition of overcomplex building and post-merging. In addition, as future works it is worth to establish benchmark datasets with varying sources, where LiDAR data are available to construct LoD-2 ground truth data, which can evaluate image-based building model reconstruction approaches.
 
 ## Reference
-'''
+```
 @article{gui2021automated,
   title={Automated LoD-2 model reconstruction from very-high-resolution satellite-derived digital surface model and orthophoto},
   author={Gui, Shengxi and Qin, Rongjun},
@@ -29,4 +29,4 @@ In our future work, a direct prediction of model type and parameters will be att
   year={2021},
   publisher={Elsevier}
 }
-'''
+```
