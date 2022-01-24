@@ -1,5 +1,5 @@
 # Automated LoD-2 Model Reconstruction from Satellite-derived Digital Surface Model and Orthophoto
-Shengxi, Gui, Rongjun, Qin  
+Shengxi Gui, Rongjun Qin  
 ISPRS Journal of Photogrammetry and Remote Sensing
 ## Resources
 [[PDF]]https://arxiv.org/ftp/arxiv/papers/2109/2109.03876.pdf  
