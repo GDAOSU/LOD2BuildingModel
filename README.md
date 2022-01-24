@@ -28,12 +28,12 @@ The executable file is at ./softawre/SAT2LoD2/SAT2LoD2.exe
 
 Python is the only language for software and open-source codes.
 Please refer to the code in ./code/
-./code/SAT2LoD2.py is the software GUI and main function of whole workflow;
-./code/hrnet_seg.py corresponses to Building detection and segmentation;
-./code/building_polygon.py corresponses to Initial 2D building polygon extraction;
-./code/building_decomposition.py corresponses to Building rectangle decomposition;
-./code/building_refinement.py corresponses to Building rectangle orientation refinement;
-./code/building_modelfit.py corresponses to 3D model fitting;
+./code/SAT2LoD2.py is the software GUI and main function of whole workflow
+./code/hrnet_seg.py corresponses to Building detection and segmentation
+./code/building_polygon.py corresponses to Initial 2D building polygon extraction
+./code/building_decomposition.py corresponses to Building rectangle decomposition
+./code/building_refinement.py corresponses to Building rectangle orientation refinement
+./code/building_modelfit.py corresponses to 3D model fitting
 ./code/building_obj.py corresponses to Mesh generation.
 
 ## Reference
