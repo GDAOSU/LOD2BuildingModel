@@ -22,7 +22,15 @@ Digital surface models (DSM) generated from multi-stereo satellite images are ge
 Please refer to the user manual in ./softawre/software_user_manual.pdf  
 The sampel input and output files are at ./softawre/example/  
 The executable file is at ./softawre/SAT2LoD2/SAT2LoD2.exe  
+
+There are two individual version of SAT2LoD2 for PC with Nvidia CUDA 10 driver and CUDA 11 driver:  
+If your GPU is RTX 30 series, please download the version for CUDA 11:   
+- Onedrive: [SAT2LoD2 CUDA11 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EUAersQxRFpHtZPKUfnXTXYBXOn575uHZ97cdEZ_Wx_LHw?e=qaPbw9)  
+- Google drive: [SAT2LoD2 CUDA11 Google drive](https://drive.google.com/file/d/1rA7SRPbSYFJwOBc7IfXxBgmUroTOZIOF/view?usp=sharing)  
   
+If your GPU is in other situation, please download the version for CUDA 10:   
+- Onedrive: [SAT2LoD2 CUDA10 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EWAmq2Rmr-lHuU9C6fRzsjcBJ7WvB0DRbXArBmXRaGt79w?e=1FyGGf)  
+- Google drive: [SAT2LoD2 CUDA10 Google drive](https://drive.google.com/file/d/1t_4epCmaXPuZgHz3QenU-zfd7-vqrvKV/view?usp=sharing)  
   
 ### Open source code of LoD-2 model reconstruction
   
@@ -35,6 +43,10 @@ Please refer to the code in ./code/;
 ./code/building_refinement.py corresponses to Building rectangle orientation refinement;  
 ./code/building_modelfit.py corresponses to 3D model fitting;  
 ./code/building_obj.py corresponses to Mesh generation.  
+
+The weight for building segmentation download here:   
+- Onedrive: [HRNet_wight Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EXWTkwmtb1lPqnkbo57Ttn8BfHcIFfzQPZ41naZBNO8rZA?e=Roocco)  
+- Google drive: [HRNet_wight Google drive](https://drive.google.com/file/d/1ya8_t67mpYJl1E7_1GyqSgcBgzIgGQg1/view?usp=sharing)
 
 ## Reference
 ```
