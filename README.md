@@ -12,7 +12,7 @@ Digital surface models (DSM) generated from multi-stereo satellite images are ge
 
 ## TODO
 
-- Building LoD-2 generation via satellite data.
+- Building LoD-2 generation via satellite data.  
 
 
 ## Usage
@@ -33,6 +33,10 @@ If your GPU is in other situation, please download the version for CUDA 10:
 - Onedrive: [SAT2LoD2 CUDA10 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EWAmq2Rmr-lHuU9C6fRzsjcBJ7WvB0DRbXArBmXRaGt79w?e=1FyGGf)  
 - Google drive: [SAT2LoD2 CUDA10 Google drive](https://drive.google.com/file/d/1t_4epCmaXPuZgHz3QenU-zfd7-vqrvKV/view?usp=sharing)  
   
+  
+#### Notice: SAT2LoD2 software and open-source has minor improvments compare with the pulished ISPRS Journal paper include: 1) building segmentation based on HRNetV2; 2) non-rectangular shape buildings mesh generation. Moreover, processing time for software and code is optimized as well.  
+  
+    
 ### Open source code of LoD-2 model reconstruction
   
 Python is the only language for software and open-source codes.  
