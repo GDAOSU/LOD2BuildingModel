@@ -602,6 +602,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             write_obj(filename, node1, face1, texture1)
             io.imsave(filename.replace('building_model.obj', 'model_texture.jpg'), img_ortho)
 
+            write_obj_roof_type(filename.replace('.obj', '_roof.obj'), node1, face1, texture1, np.array(shape2d_osm), para3d, decp_ir, img_ortho)
+
         progressbar.setValue(100)
         QMessageBox.information(self, "Notice", "LoD-2 complete")
 

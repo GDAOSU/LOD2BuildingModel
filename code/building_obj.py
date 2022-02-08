@@ -4,6 +4,7 @@ from scipy import ndimage,optimize,signal
 import trimesh
 import numpy as np
 from math import pi,sqrt,sin,cos,ceil,floor,degrees
+from building_modelfit import *
 import cv2
 import json
 import copy
@@ -348,4 +349,67 @@ def write_obj(filename,vertices,faces,texture):
         f.write("\n")
         for face in faces:
             f.write("f %d/%d %d/%d %d/%d\n" % (face[0],face[0],face[1],face[1],face[2],face[2]))
+
+
+#Display roof type in .obj
+def write_obj_roof_type(filename, vertices, faces, texture, shape2d, para3d, decp_ir, ortho):
+    p2d = copy.deepcopy(shape2d)
+    p2d = p2d - [0, 0, 100, 100, 0, 0, 0, 0, 100, 100, 100, 100, 100, 100, 100, 100]
+    imgsize = np.shape(ortho)
+    orthoout = copy.deepcopy(ortho)
+    ortho_l1 = orthoout[:, :, 0]
+    ortho_l2 = orthoout[:, :, 1]
+    ortho_l3 = orthoout[:, :, 2]
+    roof_color = np.array([[205,40,40],[40,205,40],[40,40,205],[205,205,40],[205,40,205],[40,205,205]])
+    for i, rec in enumerate(p2d):
+        rec[np.where(rec[8:] < 1)[0] + 8] = 1
+        tx = rec[8::2]
+        ty = rec[9::2]
+        roof_type = int(para3d[i][0])
+        mask_rec = fitrec(imgsize[0], imgsize[1], tx, ty)
+        ortho_l1[np.where(mask_rec == 1)] = roof_color[roof_type - 1, 0]
+        ortho_l2[np.where(mask_rec == 1)] = roof_color[roof_type - 1, 1]
+        ortho_l3[np.where(mask_rec == 1)] = roof_color[roof_type - 1, 2]
+
+    if len(decp_ir) > 0:
+        for pt_ir in decp_ir:
+            pt_temp = np.array(pt_ir)
+            pt_row = pt_temp[:, 2] - 100
+            pt_col = pt_temp[:, 1] - 100
+            mask_ir = draw.polygon2mask(imgsize[0:2], np.array([pt_row, pt_col]).T).astype(np.uint8)
+            roof_type = 6
+            ortho_l1[np.where(mask_ir == 1)] = roof_color[roof_type - 1, 0]
+            ortho_l2[np.where(mask_ir == 1)] = roof_color[roof_type - 1, 1]
+            ortho_l3[np.where(mask_ir == 1)] = roof_color[roof_type - 1, 2]
+
+    io.imsave(filename.replace('building_model_roof.obj', 'model_texture_roof.jpg'), orthoout)
+
+    filemtl = filename.replace('obj', 'mtl')
+    with open(filemtl, 'w') as f:
+        f.write("newmtl building_model_roof\n")
+        f.write("Ka 1.000000 1.000000 1.000000\n")
+        f.write("Ka 1.000000 1.000000 1.000000\n")
+        f.write("Kd 1.000000 1.000000 1.000000\n")
+        f.write("Ks 0.000000 0.000000 0.000000\n")
+        f.write("Tr 1.000000\n")
+        f.write("illum 1.000000\n")
+        f.write("Ns 0.000000\n")
+        f.write("map_Kd model_texture_roof.jpg\n")
+
+    minht = np.min(np.array(vertices)[:, 2])
+
+    with open(filename, 'w') as f:
+        f.write("mtllib building_model_roof.mtl\n")
+        f.write("usemtl building_model_roof\n")
+        for v in vertices:
+            if np.isnan(v[2]) == 1:
+                v[2] = minht
+            f.write("v %.4f %.4f %.4f\n" % (v[0], v[1], v[2]))
+
+        f.write("\n")
+        for vt in texture:
+            f.write("vt %.4f %.4f\n" % (vt[0], vt[1]))
+        f.write("\n")
+        for face in faces:
+            f.write("f %d/%d %d/%d %d/%d\n" % (face[0], face[0], face[1], face[1], face[2], face[2]))
         
