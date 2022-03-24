@@ -31,58 +31,71 @@ def rotate_image(image, angle):
   return result_img
 
 ####################################################
-# maximum inner rectangle detection part is from https://github.com/pogam/ExtractRect
 def findMaxRect(data):
-    '''http://stackoverflow.com/a/30418912/5008845'''
-    nrows,ncols = data.shape
-    w = np.zeros(dtype=int, shape=data.shape)
-    h = np.zeros(dtype=int, shape=data.shape)
+
+    (nrows, ncols) = data.shape
+    width = np.zeros(dtype=int, shape=data.shape)
+    height = np.zeros(dtype=int, shape=data.shape)
     skip = 1
     area_max = (0, [])
-   
+
     for r in range(nrows):
         for c in range(ncols):
             if data[r][c] == skip:
                 continue
             if r == 0:
-                h[r][c] = 1
+                height[r][c] = 1
             else:
-                h[r][c] = h[r-1][c]+1
+                height[r][c] = height[r - 1][c] + 1
             if c == 0:
-                w[r][c] = 1
+                width[r][c] = 1
             else:
-                w[r][c] = w[r][c-1]+1
-            minw = w[r][c]
-            for dh in range(h[r][c]):
-                minw = min(minw, w[r-dh][c])
-                area = (dh+1)*minw
+                width[r][c] = width[r][c - 1] + 1
+            minw = width[r][c]
+            for dh in range(height[r][c]):
+                minw = min(minw, width[r - dh][c])
+                area = (dh + 1) * minw
                 if area > area_max[0]:
-                    area_max = (area, [(r-dh, c-minw+1, r, c)])
+                    area_max = (area, [(r - dh, c - minw + 1, r, c)])
 
     return area_max
 
-def residual(angle,data):
-    nx,ny = data.shape
-    M = cv2.getRotationMatrix2D(((nx-1)/2,(ny-1)/2),angle,1)
-    RotData = cv2.warpAffine(data,M,(nx,ny),flags=cv2.INTER_NEAREST,borderValue=1)
+
+def residual(angle, data):
+    (nx, ny) = data.shape
+    M = cv2.getRotationMatrix2D(((nx - 1) / 2, (ny - 1) / 2), angle, 1)
+    RotData = cv2.warpAffine(data, M, (nx, ny),
+                             flags=cv2.INTER_NEAREST, borderValue=1)
     rectangle = findMaxRect(RotData)
-   
-    return 1./rectangle[0]
+
+    return 1. / rectangle[0]
+
 
 def residual_star(args):
     return residual(*args)
-    
-def get_rectangle_coord(angle,data,flag_out=None):
-    nx,ny = data.shape
-    M = cv2.getRotationMatrix2D(((nx-1)/2,(ny-1)/2),angle,1)
-    RotData = cv2.warpAffine(data,M,(nx,ny),flags=cv2.INTER_NEAREST,borderValue=1)
-    rectangle = findMaxRect(RotData)    
-    if flag_out:
-        return rectangle[1][0], M, RotData
-    else:
-        return rectangle[1][0], M
 
-def findRotMaxRect(data_in,flag_opt=False,flag_parallel = False, main_angle=0,flag_out=None,flag_enlarge_img=False,limit_image_size=300):
+
+def get_rectangle_coord(angle, data, flag_out=None):
+    (nx, ny) = data.shape
+    M = cv2.getRotationMatrix2D(((nx - 1) / 2, (ny - 1) / 2), angle, 1)
+    RotData = cv2.warpAffine(data, M, (nx, ny),
+                             flags=cv2.INTER_NEAREST, borderValue=1)
+    rectangle = findMaxRect(RotData)
+    if flag_out:
+        return (rectangle[1][0], M, RotData)
+    else:
+        return (rectangle[1][0], M)
+
+
+def findRotMaxRect(
+    data_in,
+    flag_opt=False,
+    flag_parallel=False,
+    main_angle=0,
+    flag_out=None,
+    flag_enlarge_img=False,
+    limit_image_size=300,
+    ):
     '''
     flag_opt     : True only nbre_angle are tested between 90 and 180 
                         and a opt descent algo is run on the best fit
@@ -93,85 +106,102 @@ def findRotMaxRect(data_in,flag_opt=False,flag_parallel = False, main_angle=0,fl
     limit_image_size : control the size numbre of pixel of the image use in the function. 
                        this speeds up the code but can give approximated results if the shape is not simple
     '''
-    nx_in, ny_in = data_in.shape
-    if nx_in != ny_in:
-        n = max([nx_in,ny_in])
-        data_square = np.ones([n,n])
-        xshift = round((n-nx_in)/2)
-        yshift = round((n-ny_in)/2)
 
-        if yshift == 0 and n-ny_in<=0:
-            data_square[xshift:(xshift+nx_in),:                 ] = data_in[:,:]
-        else: 
-            data_square[:                 ,yshift:(yshift+ny_in)] = data_in[:,:]
+    (nx_in, ny_in) = data_in.shape
+    if nx_in != ny_in:
+        n = max([nx_in, ny_in])
+        data_square = np.ones([n, n])
+        xshift = round((n - nx_in) / 2)
+        yshift = round((n - ny_in) / 2)
+
+        if yshift == 0 and n - ny_in <= 0:
+            data_square[xshift:xshift + nx_in, :] = data_in[:, :]
+        else:
+            data_square[:, yshift:yshift + ny_in] = data_in[:, :]
     else:
         xshift = 0
         yshift = 0
         data_square = data_in
 
-    #apply scale factor if image bigger than limit_image_size
+    # apply scale factor if image bigger than limit_image_size
+
     if data_square.shape[0] > limit_image_size:
-        data_small = cv2.resize(data_square,(limit_image_size, limit_image_size),interpolation=0)
-        scale_factor = 1.*data_square.shape[0]/data_small.shape[0]
+        data_small = cv2.resize(data_square, (limit_image_size,
+                                limit_image_size), interpolation=0)
+        scale_factor = 1. * data_square.shape[0] / data_small.shape[0]
     else:
         data_small = data_square
         scale_factor = 1
 
-
     # set the input data with an odd number of point in each dimension to make rotation easier
-    nx,ny = data_small.shape
-    nx_extra = -nx; ny_extra = -ny   
-    if nx%2==0:
-        nx+=1
-        nx_extra = 1
-    if ny%2==0:
-        ny+=1
-        ny_extra = 1
-    data_odd = np.ones([data_small.shape[0]+max([0,nx_extra]),data_small.shape[1]+max([0,ny_extra])])
-    data_odd[:-nx_extra, :-ny_extra] = data_small
-    nx,ny = data_odd.shape
 
-    nx_odd,ny_odd = data_odd.shape
+    (nx, ny) = data_small.shape
+    nx_extra = -nx
+    ny_extra = -ny
+    if nx % 2 == 0:
+        nx += 1
+        nx_extra = 1
+    if ny % 2 == 0:
+        ny += 1
+        ny_extra = 1
+    data_odd = np.ones([data_small.shape[0] + max([0, nx_extra]),
+                       data_small.shape[1] + max([0, ny_extra])])
+    data_odd[:-nx_extra, :-ny_extra] = data_small
+    (nx, ny) = data_odd.shape
+
+    (nx_odd, ny_odd) = data_odd.shape
     if flag_enlarge_img:
-        data = np.zeros([2*data_odd.shape[0]+1,2*data_odd.shape[1]+1]) + 1
-        nx,ny = data.shape
-        data[nx/2-nx_odd/2:nx/2+nx_odd/2,ny/2-ny_odd/2:ny/2+ny_odd/2] = data_odd
+        data = np.zeros([2 * data_odd.shape[0] + 1, 2
+                        * data_odd.shape[1] + 1]) + 1
+        (nx, ny) = data.shape
+        data[nx / 2 - nx_odd / 2:nx / 2 + nx_odd / 2, ny / 2 - ny_odd
+             / 2:ny / 2 + ny_odd / 2] = data_odd
     else:
         data = np.copy(data_odd)
-        nx,ny = data.shape
+        (nx, ny) = data.shape
 
-    if main_angle<0:
-        main_angle+=pi/2
-    angle_selected = main_angle*180/pi
-    rectangle, M_rect_max, RotData  = get_rectangle_coord(angle_selected,data,flag_out=True)
+    if main_angle < 0:
+        main_angle += pi / 2
+    angle_selected = main_angle * 180 / pi
+    (rectangle, M_rect_max, RotData) = \
+        get_rectangle_coord(angle_selected, data, flag_out=True)
 
-    #invert rectangle 
+    # invert rectangle
+
     M_invert = cv2.invertAffineTransform(M_rect_max)
-    rect_coord = [rectangle[:2], [rectangle[0],rectangle[3]] , 
-                  rectangle[2:], [rectangle[2],rectangle[1]] ]
+    rect_coord = [rectangle[:2], [rectangle[0], rectangle[3]],
+                  rectangle[2:], [rectangle[2], rectangle[1]]]
 
     rect_coord_ori = []
     for coord in rect_coord:
-        rect_coord_ori.append(np.dot(M_invert,[coord[0],(ny-1)-coord[1],1]))
+        rect_coord_ori.append(np.dot(M_invert, [coord[0], ny - 1
+                              - coord[1], 1]))
 
-    #transform to numpy coord of input image
+    # transform to numpy coord of input image
+
     coord_out = []
     for coord in rect_coord_ori:
-        coord_out.append(    [ scale_factor*round(       coord[0]-(nx/2-nx_odd/2),0)-xshift,\
-                               scale_factor*round((ny-1)-coord[1]-(ny/2-ny_odd/2),0)-yshift])
-    
+        coord_out.append([scale_factor * round(coord[0] - (nx / 2
+                         - nx_odd / 2), 0) - xshift, scale_factor
+                         * round(ny - 1 - coord[1] - (ny / 2 - ny_odd
+                         / 2), 0) - yshift])
+
     coord_out_rot = []
     coord_out_rot_h = []
     for coord in rect_coord:
-        coord_out_rot.append( [ scale_factor*round(       coord[0]-(nx/2-nx_odd/2),0)-xshift, \
-                                scale_factor*round(       coord[1]-(ny/2-ny_odd/2),0)-yshift ])
-        coord_out_rot_h.append( [ scale_factor*round(       coord[0]-(nx/2-nx_odd/2),0), \
-                                  scale_factor*round(       coord[1]-(ny/2-ny_odd/2),0) ])
+        coord_out_rot.append([scale_factor * round(coord[0] - (nx / 2
+                             - nx_odd / 2), 0) - xshift, scale_factor
+                             * round(coord[1] - (ny / 2 - ny_odd / 2),
+                             0) - yshift])
+        coord_out_rot_h.append([scale_factor * round(coord[0] - (nx / 2
+                               - nx_odd / 2), 0), scale_factor
+                               * round(coord[1] - (ny / 2 - ny_odd
+                               / 2), 0)])
 
     if flag_out is None:
         return coord_out
     elif flag_out == 'rotation':
-        return coord_out, angle_selected, coord_out_rot
+        return (coord_out, angle_selected, coord_out_rot)
     else:
         pdb.set_trace()
 
