@@ -1,6 +1,6 @@
 # Automated LoD-2 Model Reconstruction from Satellite-derived Digital Surface Model and Orthophoto
 
-This is a LoD-2 building model reconstruction approach with code, also the software version called "SAT2LoD".  
+This is a LoD-2 building model reconstruction approach with code, also the software version called "SAT2LoD2".  
   
 The journal paper [Automated LoD-2 Model Reconstruction from Satellite-derived Digital Surface Model and Orthophoto](https://www.sciencedirect.com/science/article/pii/S0924271621002318) <br> is the technical description of the approach.  
 
