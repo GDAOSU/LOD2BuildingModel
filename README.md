@@ -5,7 +5,7 @@ This is a LoD-2 building model reconstruction approach with code, also the softw
 The journal paper [Automated LoD-2 Model Reconstruction from Satellite-derived Digital Surface Model and Orthophoto](https://www.sciencedirect.com/science/article/pii/S0924271621002318) is the technical description of the approach.  
 
   
-The conference paper [Sat2lod2: A Software For Automated Lod-2 Modeling From Satellite-Derived Orthophoto And Digital Surface Model](https://arxiv.org/abs/2204.04139) (accepted) describing the tools (SAT2LoD) which achieve by Python, operations and with some slight updates.  
+The conference paper (accepted) [Sat2LoD2: A Software For Automated Lod-2 Modeling From Satellite-Derived Orthophoto And Digital Surface Model](https://arxiv.org/abs/2204.04139) describing the tools (SAT2LoD2) which achieve by Python, operations and with some slight updates.  
 
   
 ## Resources
