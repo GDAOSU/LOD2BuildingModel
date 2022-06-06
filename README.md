@@ -17,7 +17,7 @@ Digital surface models (DSM) generated from multi-stereo satellite images are ge
 ![workflow](https://user-images.githubusercontent.com/32317924/151380594-1a349c74-93ce-493a-b7cc-75aeb0076bdb.jpg)
 ![decomposition](https://user-images.githubusercontent.com/32317924/151380692-9d94ae99-2df0-4515-bf4f-f3acc35c696f.jpg)
 ![result1e](https://user-images.githubusercontent.com/32317924/151380719-2166784d-1454-426b-87ff-df69db505a0f.jpg)
-![result2](https://user-images.githubusercontent.com/32317924/151380747-639df04f-df93-4b0e-888e-9a10e1e4ec61.jpg)
+![resultfigure](https://user-images.githubusercontent.com/28346807/172088610-ac936671-2453-4347-bc7c-e2db6ff46401.PNG)
 
 ## TODO
 
