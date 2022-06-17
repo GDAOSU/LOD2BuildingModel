@@ -140,9 +140,9 @@ def line_adjustment(dp_line, label_num):
     return adj_line     
 
 def line_regularization(adj_line, label_num, line_reg_thr, img_ortho_t):
-    angle_thr=pi/6
+    angle_thr=pi/9
     line_short_thr=6
-    angle_reg=pi/4
+    angle_reg=pi/6
     main_ori=np.zeros((label_num,1),dtype=np.float64)
     pt0=[]
     reg_line=[]
@@ -492,7 +492,7 @@ def line_regularization(adj_line, label_num, line_reg_thr, img_ortho_t):
                 reg_line_s5[0][2]=ptq2[1]
                 line_num+=1
                 flag0+=1
-                
+
         reg_line_final=copy.deepcopy(reg_line_s5)
         reg_line_final.append(copy.deepcopy(reg_line_final[0]))
         max_angle_idx=np.argmax(np.reshape(np.array(copy.deepcopy(reg_line_final)),(len(reg_line_final),7))[:,6])
@@ -526,6 +526,9 @@ def line_regularization(adj_line, label_num, line_reg_thr, img_ortho_t):
 def merge_line_function(reg_line_p,reg_line_n,pointer_p,pointer_n):
     tx=[reg_line_n[pointer_n][0],reg_line_p[pointer_p][1]]
     ty=[reg_line_n[pointer_n][2],reg_line_p[pointer_p][3]]
+    if pointer_p == len(reg_line_p) - 1 and pointer_n == 0:
+        tx = [reg_line_n[pointer_n][1], reg_line_p[pointer_p][0]]
+        ty = [reg_line_n[pointer_n][3], reg_line_p[pointer_p][2]]
     if tx[1]==tx[0]:
         if ty[1]>ty[0]:
             ori=pi/2
