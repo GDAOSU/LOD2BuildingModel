@@ -74,10 +74,14 @@ The weight for building segmentation download here:
   year={2021},
   publisher={Elsevier}
 }
-@article{gui2022sat2lod2,
-  title={Sat2lod2: A Software For Automated Lod-2 Modeling From Satellite-Derived Orthophoto And Digital Surface Model},
-  author={Gui, Shengxi and Qin, Rongjun and Tang, Yang},
-  journal={arXiv preprint arXiv:2204.04139},
-  year={2022}
+@Article{isprs-archives-XLIII-B2-2022-379-2022,
+  AUTHOR = {Gui, S. and Qin, R. and Tang, Y.},
+  TITLE = {SAT2LOD2: A SOFTWARE FOR AUTOMATED LOD-2 BUILDING RECONSTRUCTION FROM SATELLITE-DERIVED ORTHOPHOTO AND DIGITAL SURFACE MODEL},
+  JOURNAL = {The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences},
+  VOLUME = {XLIII-B2-2022},
+  YEAR = {2022},
+  PAGES = {379--386},
+  URL = {https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLIII-B2-2022/379/2022/},
+  DOI = {10.5194/isprs-archives-XLIII-B2-2022-379-2022}
 }
 ```
