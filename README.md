@@ -5,7 +5,7 @@ This is a LoD-2 building model reconstruction approach with code, also the softw
 The journal paper [Automated LoD-2 Model Reconstruction from Satellite-derived Digital Surface Model and Orthophoto](https://www.sciencedirect.com/science/article/pii/S0924271621002318) is the technical description of the approach.  
 
   
-The conference paper (accepted) [Sat2LoD2: A Software For Automated Lod-2 Modeling From Satellite-Derived Orthophoto And Digital Surface Model](https://arxiv.org/abs/2204.04139) describing the tools (SAT2LoD2) which achieve by Python, operations and with some slight updates.  
+The conference paper [Sat2LoD2: A Software For Automated Lod-2 Modeling From Satellite-Derived Orthophoto And Digital Surface Model](https://www.int-arch-photogramm-remote-sens-spatial-inf-sci.net/XLIII-B2-2022/379/2022/) describing the tools (SAT2LoD2) which achieve by Python, operations and with some slight updates.  
 
   
 ## Resources
@@ -42,6 +42,9 @@ If your GPU is RTX 30 series, please download the version for CUDA 11:
 If your GPU is in other situation, please download the version for CUDA 10:   
 - Onedrive: [SAT2LoD2 CUDA10 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EWAmq2Rmr-lHuU9C6fRzsjcBJ7WvB0DRbXArBmXRaGt79w?e=1FyGGf)  
 - Google drive: [SAT2LoD2 CUDA10 Google drive](https://drive.google.com/file/d/1t_4epCmaXPuZgHz3QenU-zfd7-vqrvKV/view?usp=sharing)  
+
+Currently, a new version of SAT2LoD2 (Beta version) can detect and reconstruct circular building model, please download the version of CUDA 10:  
+- Onedrive: [SAT2LoD2 circle version CUDA10 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EXvngS3izhhLsmX2OR_tk-kBQRX1dYRkMJyOCszIiEEnJQ?e=YSamEU) 
   
   
 #### Notice: SAT2LoD2 software and open-source has minor improvments compare with the pulished ISPRS Journal paper include: 1) building segmentation based on HRNetV2; 2) non-rectangular shape buildings mesh generation. Moreover, processing time for software and code is optimized as well.  
