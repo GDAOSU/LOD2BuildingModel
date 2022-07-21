@@ -596,7 +596,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         if len(decp_ir) > 0:
             irr_n, irr_f, irr_vt = DSMtoMesh(decp_ir, img_dsm_t, L_mask, min_height)
-            node1, face1, texture1 = MeshMerge(node0, face0, texture0, irr_n, irr_f, irr_vt)
+            node1, face1, texture1 = MeshMerge_ir(node0, face0, texture0, irr_n, irr_f, irr_vt)
         else:
             node1, face1, texture1 = node0, face0, texture0
 

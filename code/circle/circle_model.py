@@ -464,6 +464,8 @@ def circle_check(circle_radian, rectangle, label_mask, orthot, dsmt):
             decp_rectc = decpose_rec(pt_list_int, pt_list_float, line_list_int, polygon_line, dsmt, orthot,
                                     new_label_mask, Td, Th1, Th2)
             rectangle_out1[lnum - 1] = decp_rectc[0]
+            for recout in rectangle_out1[lnum - 1]:
+                recout[0] += lnum - 1
         elif len(rectangle_temp) > 0 and re_detect == 0:
             rectangle_out1[lnum - 1] = rectangle_temp
 

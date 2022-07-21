@@ -305,7 +305,7 @@ def DSMtoMesh(decp_ir, img_dsm_t, L_mask, min_height):
 
     return irr_n, irr_f, irr_vt
 
-def MeshMerge(node_r, face_r, texture_r, node_ir, face_ir, texture_ir):
+def MeshMerge_ir(node_r, face_r, texture_r, node_ir, face_ir, texture_ir):
     node_merge = copy.deepcopy(node_r)
     face_merge = copy.deepcopy(face_r)
     vt_merge = copy.deepcopy(texture_r)
@@ -317,6 +317,19 @@ def MeshMerge(node_r, face_r, texture_r, node_ir, face_ir, texture_ir):
         node_merge.extend(node_ir[irr])
         face_merge.extend(face_ir[irr])
         vt_merge.extend(texture_ir[irr])
+
+    return node_merge, face_merge, vt_merge
+
+def MeshMerge(node_r, face_r, texture_r, node_c, face_c, texture_c):
+    node_merge = copy.deepcopy(node_r)
+    face_merge = copy.deepcopy(face_r)
+    vt_merge = copy.deepcopy(texture_r)
+
+    node_num = len(node_r)
+    face_c = list(np.array(face_c) + node_num)
+    node_merge.extend(node_c)
+    face_merge.extend(face_c)
+    vt_merge.extend(texture_c)
 
     return node_merge, face_merge, vt_merge
 
