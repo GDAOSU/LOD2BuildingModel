@@ -305,7 +305,7 @@ def DSMtoMesh(decp_ir, img_dsm_t, L_mask, min_height):
 
     return irr_n, irr_f, irr_vt
 
-def MeshMerge(node_r, face_r, texture_r, node_ir, face_ir, texture_ir):
+def MeshMerge_ir(node_r, face_r, texture_r, node_ir, face_ir, texture_ir):
     node_merge = copy.deepcopy(node_r)
     face_merge = copy.deepcopy(face_r)
     vt_merge = copy.deepcopy(texture_r)
@@ -320,8 +320,21 @@ def MeshMerge(node_r, face_r, texture_r, node_ir, face_ir, texture_ir):
 
     return node_merge, face_merge, vt_merge
 
-def write_obj(filename,vertices,faces,texture):
-    filemtl = filename.replace('obj','mtl')
+def MeshMerge(node_r, face_r, texture_r, node_c, face_c, texture_c):
+    node_merge = copy.deepcopy(node_r)
+    face_merge = copy.deepcopy(face_r)
+    vt_merge = copy.deepcopy(texture_r)
+
+    node_num = len(node_r)
+    face_c = list(np.array(face_c) + node_num)
+    node_merge.extend(node_c)
+    face_merge.extend(face_c)
+    vt_merge.extend(texture_c)
+
+    return node_merge, face_merge, vt_merge
+
+def write_obj(filename,vertices,faces,texture,tfw):
+    filemtl = filename.replace('.obj','.mtl')
     with open(filemtl,'w') as f:
         f.write("newmtl building_model\n")
         f.write("Ka 1.000000 1.000000 1.000000\n")
@@ -334,14 +347,15 @@ def write_obj(filename,vertices,faces,texture):
         f.write("map_Kd model_texture.jpg\n")
     
     minht=np.min(np.array(vertices)[:,2])
-
+    res_x, res_y = tfw[0], -tfw[3]
+    offset_x, offset_y = tfw[4], tfw[5]
     with open(filename,'w') as f:
         f.write("mtllib building_model.mtl\n")
         f.write("usemtl building_model\n")
         for v in vertices:
             if np.isnan(v[2]) == 1:
                 v[2] = minht
-            f.write("v %.4f %.4f %.4f\n" % (v[0],v[1],v[2]))
+            f.write("v %.4f %.4f %.4f\n" % (v[0]*res_x+offset_x, v[1]*res_y+offset_y, v[2]))
 
         f.write("\n")
         for vt in texture:
@@ -384,7 +398,7 @@ def write_obj_roof_type(filename, vertices, faces, texture, shape2d, para3d, dec
 
     io.imsave(filename.replace('building_model_roof.obj', 'model_texture_roof.jpg'), orthoout)
 
-    filemtl = filename.replace('obj', 'mtl')
+    filemtl = filename.replace('.obj', '.mtl')
     with open(filemtl, 'w') as f:
         f.write("newmtl building_model_roof\n")
         f.write("Ka 1.000000 1.000000 1.000000\n")

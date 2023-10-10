@@ -400,6 +400,9 @@ def HRNet_building(img_ortho,out_name):
 
     # merge predicted result
     pred_list = os.listdir(os.path.join(cfg.DIR, 'result/'))
+    #sort function
+    pred_list=pred_list.sort()
+
     pred_batch = []
     for i, pred_patch in enumerate(pred_list):
         pred = io.imread(os.path.join(cfg.DIR, 'result', pred_patch))

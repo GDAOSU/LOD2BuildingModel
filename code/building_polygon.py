@@ -202,7 +202,7 @@ def line_regularization(adj_line, label_num, line_reg_thr, img_ortho_t):
         #3.adjust capable orienation of lines to main direction
         reg_line_s3=[]
         reg_line_s3.append(reg_line_s2[0])
-        flag=0;
+        flag=0
         for j in range(1,len(reg_line_s2)-1):
             if (abs(reg_line_s3[flag][5]-reg_line_s2[j][5])<angle_thr) or\
                 (abs(reg_line_s3[flag][5]-reg_line_s2[j][5])>pi-angle_thr):

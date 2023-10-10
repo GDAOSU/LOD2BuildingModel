@@ -329,7 +329,11 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         if osm_name != 'none':
             osmshp = shapefile.Reader(osm_name)
+
+        if os.path.exists(ortho_name.replace('.tif', '.tfw')):
             tfw = np.loadtxt(ortho_name.replace('.tif', '.tfw'))
+        else:
+            tfw = np.array([1, 0, 0, -1, 0, 0])
 
         # extend image range, help to process the bordering buildings
         imgsize = np.shape(img_dsm)
@@ -594,12 +598,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
 
         if len(decp_ir) > 0:
             irr_n, irr_f, irr_vt = DSMtoMesh(decp_ir, img_dsm_t, L_mask, min_height)
-            node1, face1, texture1 = MeshMerge(node0, face0, texture0, irr_n, irr_f, irr_vt)
+            node1, face1, texture1 = MeshMerge_ir(node0, face0, texture0, irr_n, irr_f, irr_vt)
         else:
             node1, face1, texture1 = node0, face0, texture0
         if len(node1) > 0:
             filename = os.path.join(out_name, 'building_model.obj')
-            write_obj(filename, node1, face1, texture1)
+            write_obj(filename, node1, face1, texture1,tfw)
             io.imsave(filename.replace('building_model.obj', 'model_texture.jpg'), img_ortho)
 
             write_obj_roof_type(filename.replace('.obj', '_roof.obj'), node1, face1, texture1, np.array(shape2d_osm), para3d, decp_ir, img_ortho)
