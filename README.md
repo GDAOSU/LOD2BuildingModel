@@ -40,8 +40,8 @@ If your GPU is RTX 30 series, please download the version for CUDA 11:
 - Google drive: [SAT2LoD2 CUDA11 Google drive](https://drive.google.com/file/d/1rA7SRPbSYFJwOBc7IfXxBgmUroTOZIOF/view?usp=sharing)  
   
 If your GPU is in other situation, please download the version for CUDA 10:   
-- Onedrive: [SAT2LoD2 CUDA10 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EWAmq2Rmr-lHuU9C6fRzsjcBJ7WvB0DRbXArBmXRaGt79w?e=1FyGGf)  
-- Google drive: [SAT2LoD2 CUDA10 Google drive](https://drive.google.com/file/d/1t_4epCmaXPuZgHz3QenU-zfd7-vqrvKV/view?usp=sharing)  
+- Onedrive: [SAT2LoD2 CUDA10 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/r/personal/qin_324_osu_edu/Documents/BuckeyeBox%20Data/Student%20Progress/Shengxi%20Gui_work/model_fitting/GitHub_download/SAT2LoD2_CU10_2024.zip?csf=1&web=1&e=I2Jyja)  
+- Google drive: [SAT2LoD2 CUDA10 Google drive](https://drive.google.com/file/d/1Hao_-Rg7hPqhAUcx_IX-b-fuN__JMqcA/view?usp=sharing)  
 
 Currently, a new version of SAT2LoD2 (Beta version) can detect and reconstruct circular building model, please download the version of CUDA 10:  
 - Onedrive: [SAT2LoD2 circle version CUDA10 Onedrive](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/qin_324_osu_edu/EXvngS3izhhLsmX2OR_tk-kBQRX1dYRkMJyOCszIiEEnJQ?e=YSamEU) 
